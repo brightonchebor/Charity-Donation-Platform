@@ -13,13 +13,30 @@
                 <div class="row">
                     <div class="col-lg-9">
                         <div class="slider_text ">
-                            <span>Get Started Today.</span>
-                            <h3> Help the children
-                                When They Need</h3>
-                            <p>With so much to consume and such little time, coming up <br>
-                                with relevant title ideas is essential</p>
-                            <a href="About.html" class="boxed-btn3">Learn More
+                            {% comment %} <span>Make a Difference Today.</span> {% endcomment %}
+                            <h3>"Give Back. Empower Change."</h3>
+
+                            <p>
+                                Support meaningful causes with your donation. 
+                                Explore charitable initiatives and make a difference today. Your generosity creates impact.
+                            </p>
+                            {% if user_authenticated %}
+                                {% if user_org %}
+                                    <a href="{% url "app:create-campaign" %}" class="boxed-btn3">
+                                        Create Campaign
+                                    </a>
+                                {% else %}
+                                    <a href="{% url "app:register-org" %}" class="boxed-btn3">
+                                        Create Campaign
+                                    </a>
+                                {% endif %}
+                            {% else %}
+                                <p>Please <a href="{% url 'accounts:login' %}">log in</a> to create an organization or campaign.</p>
+                            {% endif %}
+                            <a href="About.html" class="boxed-btn3">
+                                View Campaigns
                             </a>
+                            
                         </div>
                     </div>
                 </div>

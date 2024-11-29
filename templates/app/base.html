@@ -38,37 +38,33 @@
                     <div class="col-xl-6 col-md-12 col-lg-8">
                         <div class="short_contact_list">
                             <ul>
-                                <li><a href="#"> <i class="fa fa-phone"></i> +1 (454) 556-5656</a></li>
-                                <li><a href="#"> <i class="fa fa-envelope"></i>Yourmail@gmail.com</a></li>
+                                <li><a href="#"> <i class="fa fa-phone"></i> 0115081710</a></li>
+                                <li><a href="#"> <i class="fa fa-envelope"></i>info@charifit.com</a></li>
                             </ul>
                         </div>
                     </div>
-                    <div class="col-xl-6 col-md-6 col-lg-4">
-                        <div class="social_media_links d-none d-lg-block">
-                            <a href="#">
-                                <i class="fa fa-facebook"></i>
-                            </a>
-                            <a href="#">
-                                <i class="fa fa-pinterest-p"></i>
-                            </a>
-                            <a href="#">
-                                <i class="fa fa-linkedin"></i>
-                            </a>
-                            <a href="#">
-                                <i class="fa fa-twitter"></i>
-                            </a>
+                    <div class="col-xl-6 col-md-6 col-lg-4" style="text-align: right;">
+                        <div class="social_media_links" style="display: inline-block;">
+                            <ul style="display: flex; justify-content: flex-end; gap: 15px; margin: 0; padding: 0; list-style: none;">
+                                <li><a href="{% url "accounts:register" %}">Sign Up</a></li>
+                                <li><a href="{% url "accounts:login" %}">Login</a></li>
+                                <li><a href="{% url "accounts:logout" %}">Logout</a></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        
+
         <div id="sticky-header" class="main-header-area">
             <div class="container-fluid">
                 <div class="row align-items-center">
                     <div class="col-xl-3 col-lg-3">
                         <div class="logo">
                             <a href="index.html">
-                                <img src="img/logo.png" alt="">
+                                <img src="{% static ".\assets\img\logo.png" %}" alt="">
                             </a>
                         </div>
                     </div>
@@ -76,7 +72,7 @@
                         <div class="main-menu">
                             <nav>
                                 <ul id="navigation">
-                                    <li><a href="index.html">home</a></li>
+                                    <li><a href="{% url "app:home" %}">home</a></li>
                                     <li><a href="About.html">About</a></li>
                                     <li><a href="#">blog <i class="ti-angle-down"></i></a>
                                         <ul class="submenu">
@@ -93,11 +89,6 @@
                                     <li><a href="contact.html">Contact</a></li>
                                 </ul>
                             </nav>
-                            <div class="Appointment">
-                                <div class="book_btn d-none d-lg-block">
-                                    <a data-scroll-nav='1' href="#">Make a Donate</a>
-                                </div>
-                            </div>
                         </div>
                     </div>
                     <div class="col-12">
@@ -111,9 +102,7 @@
 <!-- header-end -->
 
 <body>
-    <!--[if lte IE 9]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
-        <![endif]-->
+   
 
     {% block content %}
     
@@ -132,32 +121,12 @@
                                     <img src="img/footer_logo.png" alt="">
                                 </a>
                             </div>
-                            <p class="address_text">Lorem ipsum dolor sit amet, <br> consectetur adipiscing elit, sed do <br> eiusmod tempor incididunt ut labore.
+                            <p class="address_text">
+                                We aim at bridging the gap between <br> 
+                                charity organizations and donors, <br> 
+                                making fundraising more efficient.
                             </p>
-                            <div class="socail_links">
-                                <ul>
-                                    <li>
-                                        <a href="#">
-                                            <i class="ti-facebook"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="ti-twitter-alt"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-dribbble"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-instagram"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
+
 
                         </div>
                     </div>
@@ -172,7 +141,6 @@
                                 <li><a href="#">Fundraise</a></li>
                                 <li><a href="#">Volunteer</a></li>
                                 <li><a href="#">Partner</a></li>
-                                <li><a href="#">Jobs</a></li>
                             </ul>
                         </div>
                     </div>
@@ -182,10 +150,9 @@
                                 Contacts
                             </h3>
                             <div class="contacts">
-                                <p>+2(305) 587-3407 <br>
-                                    info@loveuscharity.com <br>
-                                    Flat 20, Reynolds Neck, North
-                                    Helenaville, FV77 8WS
+                                <p>0115081710 <br>
+                                    info@charifit.com <br>
+                                    Mavueni, Kilifi County
                                 </p>
                             </div>
                         </div>
@@ -237,7 +204,7 @@
                     <div class="col-xl-12">
                         <p class="copy_right text-center">
                             <p>
-                            Copyright All rights reserved | This template is made with <i class="ti-heart" aria-hidden="true"></i> by 
+                            Copyright All rights reserved | Charifit 
                             </p>
                         </p>
                     </div>

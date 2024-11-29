@@ -52,6 +52,7 @@ def login_view(request):
                 request,
                 'You are now logged in'
             )
+            return redirect('app:home')
         else:
             messages.error(
                 request,
@@ -62,5 +63,5 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     messages.success(request, 'You have been logged out successfully')
-    return redirect('home')
+    return redirect('app:home')
     
