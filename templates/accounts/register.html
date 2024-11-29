@@ -5,13 +5,7 @@
 
 {% block content %}
 
-<ul>
-    {% for message in messages %} 
-    <li style="color: {% if message.tags == 'error' %}red{% else %}green{% endif %};">
-        {{ message }}
-    </li>
-    {% endfor %}
-</ul>
+
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
 

@@ -46,9 +46,14 @@
                     <div class="col-xl-6 col-md-6 col-lg-4" style="text-align: right;">
                         <div class="social_media_links" style="display: inline-block;">
                             <ul style="display: flex; justify-content: flex-end; gap: 15px; margin: 0; padding: 0; list-style: none;">
-                                <li><a href="{% url "accounts:register" %}">Sign Up</a></li>
-                                <li><a href="{% url "accounts:login" %}">Login</a></li>
-                                <li><a href="{% url "accounts:logout" %}">Logout</a></li>
+                                      
+                                {% if user.is_authenticated %}
+                                    
+                                    <li><a href="{% url "accounts:logout" %}">Logout</a></li>
+                                {% else %}
+                                    <li><a href="{% url "accounts:login" %}">Login</a></li>
+                                    <li><a href="{% url "accounts:register" %}">Sign Up</a></li>
+                                {% endif %}
                             </ul>
                         </div>
                     </div>

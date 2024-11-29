@@ -13,6 +13,13 @@
 
 <div class="card bg-light">
 <article class="card-body mx-auto" style="max-width: 400px;">
+	<ul>
+		{% for message in messages %} 
+		<li style="color: {% if message.tags == 'error' %}red{% else %}green{% endif %};">
+			{{ message }}
+		</li>
+		{% endfor %}
+	</ul>
 	<h4 class="card-title mt-3 text-center">Login</h4>
 	<p class="text-center">Get started with your free account</p>
 	

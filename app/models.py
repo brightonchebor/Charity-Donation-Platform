@@ -1,7 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+# class UploadedImage(models.Model):
+#     title = models.CharField(max_length=255, null=True, blank=True)
+#     image = models.ImageField(upload_to='uploaded_images')
 
+#     def __str__(self):
+#         return self.title
+    
 class Organization(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
@@ -17,10 +23,11 @@ class Campaign(models.Model):
     ]
     title = models.CharField(max_length=255)
     goal_amount = models.DecimalField(max_digits=10, decimal_places=2)
-    total_donations = models.DecimalField(max_digits=10, decimal_places=2)
-    status = models.CharField(max_length=10, choices=choices)
+    total_donations = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    status = models.CharField(max_length=10, choices=choices, default='Ongoing')
+    goals_and_plans = models.TextField(blank=True, null=True, help_text="Describe your organization's goals, expectations, and how the funds will be used.")
     organization = models.ForeignKey(Organization, on_delete=models.CASCADE, related_name='campaigns')
-    image = models.OneToOneField('UploadedImage', on_delete=models.SET_NULL, null=True, blank=True)
+    image = models.ImageField(upload_to='images')
 
     def __str__(self):
         return f'{self.title} of {self.organization}'
@@ -38,11 +45,6 @@ class Transaction(models.Model):
     def __str__(self):
         return f'{self.amount} donated by {self.donor_name} ({self.donor_phone})'
     
-class UploadedImage(models.Model):
-    title = models.CharField(max_length=255)
-    image = models.ImageField(upload_to='uploaded_images')
 
-    def __str__(self):
-        return self.title
 
     

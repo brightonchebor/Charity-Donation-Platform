@@ -24,7 +24,7 @@ def register(request):
                     email = email
                 )
                 user.save()
-                messages.success(request, 'Your profile has been set up! Explore your dashboard.')
+                messages.success(request, 'Your profile has been set up! Login and expore your dashboard.')
                 return redirect('accounts:login')
             except:
                 messages.error(request, 'It seems you already have an account. Try logging in')
