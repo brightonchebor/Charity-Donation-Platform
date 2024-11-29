@@ -37,3 +37,8 @@ def register_org(request):
 
     return render(request, 'app/register_org.html', context)
 
+def about(request):
+    context =  {
+
+    }
+    return render(request, 'app/about.html', context)
