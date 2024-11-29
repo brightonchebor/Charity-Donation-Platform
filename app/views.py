@@ -70,3 +70,11 @@ def about(request):
     }
     return render(request, 'app/about.html', context)
 
+def view_campaigns(request):
+    campaigns = Campaign.objects.all()
+    context = {
+        'campaigns': campaigns
+    }
+    return render(request, 'app/view_campaigns.html', context)
+
+

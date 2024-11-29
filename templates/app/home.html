@@ -21,7 +21,7 @@
                                 </li>
                                 {% endfor %}
                             </ul>
-                            {% comment %} <span>Make a Difference Today.</span> {% endcomment %}
+                            
                             <h3>"Give Back. Empower Change."</h3>
 
                             <p>
@@ -41,7 +41,7 @@
                             {% else %}
                                 <p>Please <a href="{% url 'accounts:login' %}">log in</a> to create an organization or campaign.</p>
                             {% endif %}
-                            <a href="About.html" class="boxed-btn3">
+                            <a href="{% url "app:view-campaigns" %}" class="boxed-btn3">
                                 View Campaigns
                             </a>
                             
