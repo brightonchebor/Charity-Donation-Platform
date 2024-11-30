@@ -1,11 +1,15 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Organization, Campaign
+from .models import Organization, Campaign, Transaction
 from django.contrib import messages
-from django.core.files.storage import FileSystemStorage
-from django.conf import settings
 
-# Create your views here.
+import requests
+import json
+from .credentials import LipanaMpesaPpassword, MpesaAccessToken
+
+from django.http import HttpResponse
+from django.utils.timezone import now
+
 def home(request):
     user_org = None
     if request.user.is_authenticated:
@@ -18,9 +22,7 @@ def home(request):
 
 
 def create_campaign(request, organization_id):
-    organization = get_object_or_404(Organization, id=organization_id, owner=request.user)
-
-        
+    organization = get_object_or_404(Organization, id=organization_id, owner=request.user)    
 
     if request.method == 'POST':
 
@@ -68,6 +70,7 @@ def about(request):
     context =  {
 
     }
+    
     return render(request, 'app/about.html', context)
 
 def view_campaigns(request):
@@ -77,4 +80,72 @@ def view_campaigns(request):
     }
     return render(request, 'app/view_campaigns.html', context)
 
+def campaign_details(request, id):
+    campaign = get_object_or_404(Campaign, id=id)
 
+
+    context = {
+        'campaign' : campaign,
+    }
+    return render(request, 'app/campaign_details.html', context)
+
+
+# Adding the mpesa functions
+
+
+# Generate the ID of the transaction
+def token(request):
+    """ Generates the ID of the transaction """
+    consumer_key = 'qvQFfRUmIIMKcLutXyGEdAbkKtYN7RzIjVKiMz8Ma94qQt4q'
+    consumer_secret = 'HRSVAAGk1AEG4ZATjzWmqYSTpGluFG6Erf8gRab85NEepozIGSmTPmR6k2Cu9Ivr'
+    api_URL = 'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials'
+
+    r = requests.get(api_URL, auth=HTTPBasicAuth(
+        consumer_key, consumer_secret))
+    mpesa_access_token = json.loads(r.text)
+    validated_mpesa_access_token = mpesa_access_token["access_token"]
+
+    return render(request, 'token.html', {"token":validated_mpesa_access_token})
+
+
+# Send the stk push
+def stk(request, id):
+    campaign = get_object_or_404(Campaign, id=id)
+    organization = campaign.organization
+
+    """ Sends the stk push prompt """
+    if request.method =="POST":
+        donor_phone = request.POST['donor_phone']
+        amount = request.POST['amount']
+        access_token = MpesaAccessToken.validated_mpesa_access_token
+        api_url = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest"
+        headers = {"Authorization": "Bearer %s" % access_token}
+        request_data = {
+            "BusinessShortCode": LipanaMpesaPpassword.Business_short_code,
+            "Password": LipanaMpesaPpassword.decode_password,
+            "Timestamp": LipanaMpesaPpassword.lipa_time,
+            "TransactionType": "CustomerPayBillOnline",
+            "Amount": amount,
+            "PartyA": donor_phone,
+            "PartyB": LipanaMpesaPpassword.Business_short_code,
+            "PhoneNumber": donor_phone,
+            "CallBackURL": "https://sandbox.safaricom.co.ke/mpesa/",
+            "AccountReference": "charifit",
+            "TransactionDesc": "Web Development Charges"
+        }
+        response = requests.post(api_url, json=request_data, headers=headers)
+        response_data = response.json()
+
+        transaction = Transaction.objects.create(
+            transaction_id=response_data.get("CheckoutRequestID"),
+            donor_phone=donor_phone,
+            amount=amount,
+            transaction_time=now(),
+            status="Approved", # to be updated by callback
+            organization = organization,
+            campaign = campaign
+        )
+       
+        # return HttpResponse("Thank you for your generosity! Your donation has been successfully initiated. 😊")
+        messages.success(request, 'Thank you for your generosity! Your donation has been successfully initiated. 😊')
+        return redirect('app:view-campaigns')
