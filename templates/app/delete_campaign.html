@@ -1,0 +1,32 @@
+{% extends "./base.html" %}
+
+{% block title %}
+    Delete Campaign
+{% endblock %}
+
+{% block content %}
+<br/>
+<br/>
+<br/>
+<br/>
+<div class="container">
+    <h3>Are you sure you want to delete the campaign "{{ campaign.title }}"?</h3>
+    <br/>
+    <br/>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger" style="color: white; background-color: red; padding: 10px 20px; text-decoration: none; border-radius: 5px;">
+            Yes, delete
+        </button>
+        <a href="{% url 'app:my-campaign' campaign.id %}" class="btn btn-secondary" style="color: white; background-color: #3CC78F; padding: 10px 20px; text-decoration: none; border-radius: 5px;">
+            No, go back
+        </a>
+    </form>
+</div>
+<br/>
+<br/>
+<br/>
+<br/>  
+{% endblock content %}
+

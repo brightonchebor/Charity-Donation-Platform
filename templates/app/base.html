@@ -28,6 +28,9 @@
     <link rel="stylesheet" href="{% static ".\assets\css\slicknav.css" %}">
     <link rel="stylesheet" href="{% static ".\assets\css\style.css" %}">
     <!-- <link rel="stylesheet" href="css/responsive.css"> -->
+    <style> 
+        table, th, td { border: 1px solid black; border-collapse: collapse; } th, td { padding: 8px; text-align: left; }
+    </style> 
 </head>
 <!-- header-start -->
 <header>
@@ -48,7 +51,7 @@
                             <ul style="display: flex; justify-content: flex-end; gap: 15px; margin: 0; padding: 0; list-style: none;">
                                       
                                 {% if user.is_authenticated %}
-                                    
+                                    {% comment %} <li><a href="{% url "app:my-campaign" campaign.id %}">My Campaign</a></li> {% endcomment %}
                                     <li><a href="{% url "accounts:logout" %}">Logout</a></li>
                                 {% else %}
                                     <li><a href="{% url "accounts:login" %}">Login</a></li>
@@ -123,7 +126,7 @@
                         <div class="footer_widget">
                             <div class="footer_logo">
                                 <a href="#">
-                                    <img src="img/footer_logo.png" alt="">
+                                    <img src="{% static ".\assets\img\footer_logo.png" %}" alt="">
                                 </a>
                             </div>
                             <p class="address_text">

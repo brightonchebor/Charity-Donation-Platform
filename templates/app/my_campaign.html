@@ -1,0 +1,137 @@
+{% extends "./base.html" %}
+
+{% load static %}
+
+{% block title %}
+ Campaign Details
+{% endblock title %}
+
+{% block content %}
+<div class="bradcam_area breadcam_bg overlay d-flex align-items-center justify-content-center" style="height: 170px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="bradcam_text text-center">
+                    <h3>{{campaign.organization.name}}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if campaign %}
+    
+<!-- popular_causes_area_start  -->
+<div class="popular_causes_area pt-120 cause_details ">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="single_cause">
+                    
+                    
+                    <div class="causes_content">
+                        <div class="custom_progress_bar">
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: 30%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
+                                    <span class="progres_count">
+                                         {{campaign.progress_percentage}}%
+                                    </span>
+                                </div>
+                              </div>
+                        </div>
+                                                                         
+                        <div>
+                           
+                            <h2>{{ campaign.title }}</h2>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Organization </th>
+                                        <th>Goal Amount </th>
+                                        <th>Total Donations </th>
+                                        <th>Progress </th>
+                                        <th>Status </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{campaign.organization.name}}</td>
+                                        <td>{{ campaign.goal_amount }}</td>
+                                        <td>{{ campaign.total_donations }}</td>
+                                        <td>{{ campaign.progress_percentage}}%</td>
+                                        <td>{{ campaign.status }}</td>
+                                        
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            {% if transactions %}
+                                <br/>
+                                <br/>
+                                <br/>
+                                <h2>Transactions</h2>
+                                <p> Total number of transactions: {{total_transactions}}</p>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Transaction ID </th>
+                                            <th>Donor Phone </th>
+                                            <th>Amount </th>
+                                            <th>Transaction Time </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for transaction in transactions %}
+                                        <tr>
+                                            <td>{{transaction.transaction_id}}</td>
+                                            <td>{{transaction.donor_phone}}</td>
+                                            <td>{{transaction.amount}}</td>
+                                            <td>{{transaction.transaction_time}}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                                <br/>
+                                <a href="{% url "app:download-csv" campaign.id %}" style="color: black; text-decoration: none;"> Download Transactions as  CSV</a>
+                            {% else  %}
+                                <br/>
+                                <br/>
+                                <br/>
+                                <h2>Transactions</h2>
+                                <p> No Transactions Yet </p>
+                            {% endif %} 
+                            
+                    </div>
+
+                    <div class="form-group mt-3">
+                        <a href="#" class="btn btn-primary" style="color: white; background-color: #3CC78F; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Edit Campaign</a>
+                        <a href="{% url "app:delete-campaign" campaign.id %}" class="btn btn-danger" style="color: white; background-color: red; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Delete Campaign</a>
+                
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- popular_causes_area_end  -->
+
+{% else %}
+<div class="popular_causes_area pt-120 cause_details ">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="single_cause">
+                    <p>
+                        You dont have any campaigns, click <a> here </a> to create one.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>    
+
+{% endif %}
+
+
+
+{% endblock content %}

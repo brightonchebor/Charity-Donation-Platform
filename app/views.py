@@ -9,14 +9,16 @@ from .credentials import LipanaMpesaPpassword, MpesaAccessToken
 
 from django.http import HttpResponse
 from django.utils.timezone import now
+import csv
 
 def home(request):
+    
     user_org = None
     if request.user.is_authenticated:
         user_org = Organization.objects.filter(owner=request.user).first()
     context = {
         'user_org': user_org,
-        'user_authenticated': request.user.is_authenticated 
+        'user_authenticated': request.user.is_authenticated,
     }
     return render(request,'app/home.html', context)
 
@@ -81,19 +83,37 @@ def view_campaigns(request):
     return render(request, 'app/view_campaigns.html', context)
 
 def campaign_details(request, id):
-    campaign = get_object_or_404(Campaign, id=id)
+    
+    return render(request, 'app/campaign_details.html')
 
-
+def delete_campaign(request, id):
+    campaign = Campaign.objects.get(id=id)
+    if request.method == 'POST':
+        campaign.delete()  
+        messages.success(request, 'Campaign deleted successfully') 
+        return redirect('app:view-campaigns')
     context = {
-        'campaign' : campaign,
-    }
-    return render(request, 'app/campaign_details.html', context)
+        'campaign': campaign
+    }  
+
+    return render(request, 'app/delete_campaign.html')    
+
+def my_campaign(request, id):
+    try:
+        campaign = get_object_or_404(Campaign, id=id)
+
+        context = {
+            'campaign': campaign
+        }    
+        return render(request, 'app/my_campaign.html', context)
+    
+    except:
+        messages.error(request, 'No Campaign matches the given query')
+        return redirect('app:home')
 
 
-# Adding the mpesa functions
 
 
-# Generate the ID of the transaction
 def token(request):
     """ Generates the ID of the transaction """
     consumer_key = 'qvQFfRUmIIMKcLutXyGEdAbkKtYN7RzIjVKiMz8Ma94qQt4q'
@@ -149,3 +169,16 @@ def stk(request, id):
         # return HttpResponse("Thank you for your generosity! Your donation has been successfully initiated. 😊")
         messages.success(request, 'Thank you for your generosity! Your donation has been successfully initiated. 😊')
         return redirect('app:view-campaigns')
+    
+def download_csv(request, id):
+    campaign = get_object_or_404(Campaign, id=id)
+    transactions = campaign.transactions.all()
+
+    response = HttpResponse(content_type='text/csv')
+    response['content-Disposition'] = f'attachment; filename="{campaign.title}_transactions.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['Transaction ID', 'Donor Phone', 'Amount', 'Transaction Time'])
+    for transaction in transactions: 
+        writer.writerow([transaction.transaction_id, transaction.donor_phone, transaction.amount, transaction.transaction_time]) 
+    return response

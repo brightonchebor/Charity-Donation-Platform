@@ -33,6 +33,11 @@
                                     <a href="{% url "app:create-campaign" user_org.id %}" class="boxed-btn3">
                                         Create Campaign
                                     </a>
+                                    
+                                        <a href="{% url "app:my-campaign" user_org.id %}" class="boxed-btn3">
+                                            My Campaign
+                                        </a>
+                                    
                                 {% else %}
                                     <a href="{% url "app:register-org" %}" class="boxed-btn3">
                                         Create Campaign
