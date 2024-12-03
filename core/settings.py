@@ -121,7 +121,7 @@ JAZZMIN_SETTINGS = {
         {"app": "accounts"},
         {"app": "app"},
     ],
-    "show_ui_builder": False,
+    "show_ui_builder": True,
 
 }
 JAZZMIN_UI_TWEAKS = {
