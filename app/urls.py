@@ -13,6 +13,7 @@ urlpatterns = [
     path('stk/<int:id>/', stk, name='stk'),
     path('my-campaign/<int:id>/', my_campaign, name='my-campaign'),
     path('download-transactions/<int:id>/', download_csv, name='download-csv'),
-    path('delete-campaign/<int:id>/', delete_campaign, name='delete-campaign')
+    path('delete-campaign/<int:id>/', delete_campaign, name='delete-campaign'),
+    path('edit_campaign/<int:id>/', edit_campaign, name='edit-campaign'),
    
 ]

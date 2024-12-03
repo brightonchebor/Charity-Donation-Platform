@@ -1,7 +1,7 @@
 {% extends "./base.html" %}
 
 {% block title %}
-    Create Campaign
+    Edit Campaign
 {% endblock title %}
 
 {% block content %}
@@ -29,28 +29,48 @@
                         <h2 class="contact-title"></h2>
                     </div>
                     <div class="col-lg-8">
-                        <form class="form-contact contact_form"  method="post" action="{% url 'app:create-campaign' organization.id %}" enctype="multipart/form-data">
+                        <form class="form-contact contact_form"  method="post" action="{% url 'app:edit-campaign' campaign.id %}" enctype="multipart/form-data">
                             {% csrf_token %}
                             <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="title">Title of the Campaign</label>
+                                        <input class="form-control valid" name="title" id="title" type="text"  value="{{campaign.title}}">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="title">Status</label>
+                                        <input class="form-control valid" name="status" id="status" type="text"  value="{{campaign.status}}">
+                                    </div>
+                                </div>
+
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <textarea class="form-control w-100" name="goals_and_plans" id="goals_and_plans" cols="30" rows="9" onfocus="this.placeholder = 'Describe goals and expectations'" onblur="this.placeholder = 'Enter Message'" placeholder="Describe goals and expectations"></textarea>
+                                        <label for="image">Current Image</label>
+                                        <br/>
+                                        {% if campaign.image %}
+                                            <img src="{{ campaign.image.url }}" alt="Current Image" style="max-width: 200px;">
+                                        {% endif %}
+                                        <br/>
+                                        <br/>
+                                        <input class="form-control" name="image" type="file">
+                                        
+                                    </div>
+                                </div>
+                                
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="goals_and_plans">Goals and Plans</label>
+                                        <textarea  class="form-control w-100" name="goals_and_plans" id="goals_and_plans" cols="30" rows="9" >{{campaign.goals_and_plans}}</textarea>
                                     </div>
                                 </div>
                                 
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <input class="form-control valid" name="goal_amount" id="goal_amount" type="number" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'" placeholder="Enter Goal Amount(KES)">
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <input class="form-control" name="image"  type="file" required>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <input class="form-control valid" name="title" id="title" type="text"  placeholder="Enter the Image Caption">
+                                        <label for="goal_amount">Goal Amount</label>
+                                        <input class="form-control valid" name="goal_amount" value="{{campaign.goal_amount}}">
                                     </div>
                                 </div>
                                 

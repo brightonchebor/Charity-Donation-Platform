@@ -111,6 +111,23 @@ def my_campaign(request, id):
         messages.error(request, 'No Campaign matches the given query')
         return redirect('app:home')
 
+def edit_campaign(request, id):
+    campaign = get_object_or_404(Campaign, id=id)
+    if request.method == 'POST':
+        campaign.title = request.POST['title']
+        campaign.goal_amount = request.POST['goal_amount']
+        campaign.status = request.POST['status']
+        campaign.goals_and_plans = request.POST['goals_and_plans']
+        image = request.FILES.get('image')
+        if image:
+          campaign.image = image
+
+        campaign.save()
+
+        return redirect('app:view-campaigns')
+    return render(request, 'app/edit_campaign.html')
+
+
 
 
 
