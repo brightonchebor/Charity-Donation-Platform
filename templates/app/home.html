@@ -16,7 +16,7 @@
 
                             <ul>
                                 {% for message in messages %} 
-                                <li style="color: {% if message.tags == 'error' %}red{% else %}#3CC78F{% endif %};">
+                                <li style="color: {% if message.tags == 'error' %}red{% else %}white{% endif %};">
                                     {{ message }}
                                 </li>
                                 {% endfor %}

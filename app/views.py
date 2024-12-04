@@ -24,7 +24,8 @@ def home(request):
 
 
 def create_campaign(request, organization_id):
-    organization = get_object_or_404(Organization, id=organization_id, owner=request.user)    
+    organization = get_object_or_404(Organization, id=organization_id, owner=request.user) 
+    campaign = Campaign.objects.filter(organization=organization).first()   
 
     if request.method == 'POST':
 
@@ -45,7 +46,8 @@ def create_campaign(request, organization_id):
         return redirect('app:home')
 
     context = {
-        'organization':organization
+        'organization':organization,
+        'campaign' : campaign
     }
 
     return render(request, 'app/create_campaign.html', context)
@@ -128,7 +130,7 @@ def edit_campaign(request, id):
     return render(request, 'app/edit_campaign.html')
 
 def contact_us(request):
-    
+
     context = {
 
     }
