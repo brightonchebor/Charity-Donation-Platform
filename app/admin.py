@@ -8,4 +8,5 @@ class OrganizationAdmin(admin.ModelAdmin):
     list_filter = ('owner',)
 admin.site.register(Campaign)
 admin.site.register(Transaction)
+admin.site.register(ContactUs)
 

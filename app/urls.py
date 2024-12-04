@@ -15,5 +15,6 @@ urlpatterns = [
     path('download-transactions/<int:id>/', download_csv, name='download-csv'),
     path('delete-campaign/<int:id>/', delete_campaign, name='delete-campaign'),
     path('edit_campaign/<int:id>/', edit_campaign, name='edit-campaign'),
+    path('contact-us/', contact_us, name='contact-us'),
    
 ]

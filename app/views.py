@@ -127,8 +127,12 @@ def edit_campaign(request, id):
         return redirect('app:view-campaigns')
     return render(request, 'app/edit_campaign.html')
 
+def contact_us(request):
+    
+    context = {
 
-
+    }
+    return render(request, 'app/contact_us.html', context)
 
 
 def token(request):
