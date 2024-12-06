@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Organization, Campaign, Transaction
+from .models import Organization, Campaign, Transaction, ContactUs
 from django.contrib import messages
 
 import requests
@@ -43,7 +43,7 @@ def create_campaign(request, organization_id):
             title = title
         )
         messages.success(request, 'Your Campaign has been created successfully.')
-        return redirect('app:home')
+        return redirect('app:view-campaigns')
 
     context = {
         'organization':organization,
@@ -127,14 +127,26 @@ def edit_campaign(request, id):
         campaign.save()
 
         return redirect('app:view-campaigns')
-    return render(request, 'app/edit_campaign.html')
+    else:
+        return render(request, 'app/edit_campaign.html')
 
 def contact_us(request):
+    if request.method == 'POST':
+        phone = request.POST['phone']
+        email = request.POST['email']
+        message = request.POST['message']
 
-    context = {
+        contact = ContactUs.objects.create(
+            phone = phone,
+            email = email,
+            message = message
+        ) 
+        contact.save()  
+        messages.success(request, 'Thank you for getting in touch, Our support team will respond shortly!')
+        return redirect('app:home')
 
-    }
-    return render(request, 'app/contact_us.html', context)
+    else:
+        return render(request, 'app/contact_us.html')
 
 
 def token(request):

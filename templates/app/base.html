@@ -51,12 +51,12 @@
                             <ul style="display: flex; justify-content: flex-end; gap: 15px; margin: 0; padding: 0; list-style: none;">
                                       
                                 {% if user.is_authenticated %}
-                                    {% comment %} <li><a href="{% url "app:my-campaign" campaign.id %}">My Campaign</a></li> {% endcomment %}
                                     <li><a href="{% url "accounts:logout" %}">Logout</a></li>
                                 {% else %}
                                     <li><a href="{% url "accounts:login" %}">Login</a></li>
                                     <li><a href="{% url "accounts:register" %}">Sign Up</a></li>
                                 {% endif %}
+
                             </ul>
                         </div>
                     </div>
@@ -98,13 +98,10 @@
 <!-- header-end -->
 
 <body>
-   
-
-    {% block content %}
+        {% block content %}
+        
+        {% endblock content %}
     
-    {% endblock content %}
-
-
     <!-- footer_start  -->
     <footer class="footer">
         <div class="footer_top">
@@ -132,11 +129,10 @@
                                 Services
                             </h3>
                             <ul class="links">
-                                <li><a href="#">Donate</a></li>
-                                <li><a href="#">Sponsor</a></li>
-                                <li><a href="#">Fundraise</a></li>
-                                <li><a href="#">Volunteer</a></li>
-                                <li><a href="#">Partner</a></li>
+                                <li><a href="{% url "app:view-campaigns" %}">Donate</a></li>
+                                <li><a href="{% url "app:view-campaigns" %}">Sponsor</a></li>
+                                <li><a href="{% url "app:view-campaigns" %}">Fundraise</a></li>
+                                <li><a href="{% url "app:view-campaigns" %}">Volunteer</a></li>
                             </ul>
                         </div>
                     </div>
@@ -148,7 +144,8 @@
                             <div class="contacts">
                                 <p>0115081710 <br>
                                     info@charifit.com <br>
-                                    Mavueni, Kilifi County
+                                    Mavueni, Kilifi County<br>
+                                    Rosemead Biulding opposite Naivas
                                 </p>
                             </div>
                         </div>
@@ -156,38 +153,21 @@
                     <div class="col-xl-3 col-md-6 col-lg-3">
                         <div class="footer_widget">
                             <h3 class="footer_title">
-                                Top News
+                                Important Links
                             </h3>
-                            <ul class="news_links">
-                                <li>
-                                    <div class="thumb">
-                                        <a href="#">
-                                            <img src="img/news/news_1.png" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="info">
-                                        <a href="#">
-                                            <h4>School for African 
-                                                Childrens</h4>
-                                        </a>
-                                        <span>Jun 12, 2019</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="thumb">
-                                        <a href="#">
-                                            <img src="img/news/news_2.png" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="info">
-                                        <a href="#">
-                                            <h4>School for African 
-                                                Childrens</h4>
-                                        </a>
-                                        <span>Jun 12, 2019</span>
-                                    </div>
-                                </li>
+                            <ul class="links">
+                                <li><a href="{% url "accounts:register" %}">
+                                    Register
+                                </a></li>
+                                <li><a href="{% url "app:contact-us" %}">
+                                    Contact US
+                                 </a></li>
+                                <li><a href="{% url "app:about" %}">
+                                    About US
+                                 </a></li>
+                               
                             </ul>
+                           
                         </div>
                     </div>
                 </div>
