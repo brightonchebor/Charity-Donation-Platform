@@ -107,7 +107,7 @@ def my_campaign(request, id):
         context = {
             'campaign': campaign
         }    
-        return render(request, 'app/my_campaign.html', context)
+        return , context)
     
     except:
         messages.error(request, 'No Campaign matches the given query')
