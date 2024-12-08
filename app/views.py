@@ -63,8 +63,8 @@ def register_org(request):
             name=name, description=description, owner=owner
         )
         new_org.save()
-        messages.success(request, 'Your Organization has been created successfully, proceed and create a campaign')
-        return redirect('app:home')
+        messages.success(request, 'Your Organization has been created successfully, create a campaign below')
+        return redirect('app:create-campaign', organization_id=new_org.id)
         
     context = {}
 
@@ -107,7 +107,7 @@ def my_campaign(request, id):
         context = {
             'campaign': campaign
         }    
-        return , context)
+        return  render(request, 'app/my_campaign.html', context)
     
     except:
         messages.error(request, 'No Campaign matches the given query')

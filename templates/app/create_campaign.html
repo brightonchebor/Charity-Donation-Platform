@@ -13,6 +13,11 @@
                 <div class="col-xl-12">
                     <div class="bradcam_text text-center">
                         <h3>Create Campaign</h3>
+                        {% for message in messages %} 
+                                <li style="color: {% if message.tags == 'error' %}red{% else %}white{% endif %};">
+                                    {{ message }}
+                                </li>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
