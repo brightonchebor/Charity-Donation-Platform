@@ -83,7 +83,7 @@ def view_campaigns(request):
         'campaigns': campaigns
     }
     return render(request, 'app/view_campaigns.html', context)
-
+    
 def campaign_details(request, id):
     
     return render(request, 'app/campaign_details.html')
