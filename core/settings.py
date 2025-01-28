@@ -66,7 +66,7 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'djangodb',
+        'NAME': 'charitydb',
         'USER': 'root',
         'PASSWORD': 'sb62pu4142321',
         'HOST': '127.0.0.1',
