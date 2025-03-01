@@ -114,10 +114,10 @@ USE_TZ = True
 WHITENOISE_MANIFEST_STRICT = False
 
 
-STATIC_URL = 'static/'
+STATIC_URL = 'staticfiles/'
 
 STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, 'static')
+        os.path.join(BASE_DIR, 'staticfiles')
 ]
 
 if not DEBUG:
