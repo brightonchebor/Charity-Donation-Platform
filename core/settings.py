@@ -1,6 +1,7 @@
 
 import os
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -63,7 +64,6 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 
 
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -75,6 +75,13 @@ DATABASES = {
 
     }
 }
+
+DATABASES['default'] = dj_database_url.parse(
+    'postgresql://charity_donation_platform_user:9OeYXMpPDRImH7fBOu8mRFvku6fspQwz@dpg-cv1cbp5ds78s73dnavvg-a.oregon-postgres.render.com/charity_donation_platform'
+)
+
+
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
