@@ -2,6 +2,8 @@
 import os
 from pathlib import Path
 import dj_database_url
+from decouple import config
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -11,9 +13,9 @@ SECRET_KEY = 'django-insecure-s*e0k7-zycfnac2i18i^=^23(f_r-$-px^13f6i@)9z9v&(&=8
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', cast=bool)
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = config('ALLOWED_HOSTS').split(',')
 
 
 # Application definition
@@ -77,7 +79,7 @@ DATABASES = {
 }
 
 DATABASES['default'] = dj_database_url.parse(
-    'postgresql://charity_donation_platform_user:9OeYXMpPDRImH7fBOu8mRFvku6fspQwz@dpg-cv1cbp5ds78s73dnavvg-a.oregon-postgres.render.com/charity_donation_platform'
+    config('DATABASE_URL')
 )
 
 
