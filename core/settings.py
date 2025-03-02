@@ -41,7 +41,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    "whitenoise.middleware.WhiteNoiseMiddleware",
+    # "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -79,9 +79,9 @@ DATABASES = {
     }
 }
 
-DATABASES['default'] = dj_database_url.parse(
-    config('DATABASE_URL')
-)
+# DATABASES['default'] = dj_database_url.parse(
+#     config('DATABASE_URL')
+# )
 
 
 
@@ -114,10 +114,10 @@ USE_TZ = True
 WHITENOISE_MANIFEST_STRICT = False
 
 
-STATIC_URL = 'staticfiles/'
+STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, 'staticfiles')
+        os.path.join(BASE_DIR, 'static')
 ]
 
 if not DEBUG:
