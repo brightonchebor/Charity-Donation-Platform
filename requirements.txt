@@ -6,7 +6,7 @@ mysqlclient==2.2.6
 dj-database-url==2.3.0
 
 # Environment & Configuration
-python-decouple==3.8
+environ==0.11.2
 django-environ==0.11.2
 
 # Third-party Django Apps
@@ -25,4 +25,4 @@ Pillow==11.0.0
 # - datetime
 # - base64
 # - os
-# - pathlib 
+# - pathlib

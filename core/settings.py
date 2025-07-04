@@ -2,7 +2,7 @@
 import os
 from pathlib import Path
 import dj_database_url
-from decouple import config
+import environ
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -105,7 +105,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Africa/Nairobi'
 
 USE_I18N = True
 
