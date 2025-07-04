@@ -4,18 +4,24 @@ from pathlib import Path
 import dj_database_url
 import environ
 
+env = environ.Env(
+    # Set casting, default value
+    DEBUG = (bool, False)
+)
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+
+environ.Env.read_env(BASE_DIR / '.env')
 
 SECRET_KEY = 'django-insecure-s*e0k7-zycfnac2i18i^=^23(f_r-$-px^13f6i@)9z9v&(&=8'
 
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', cast=bool)
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS').split(',')
+DEBUG = True
+
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -79,9 +85,6 @@ DATABASES = {
     }
 }
 
-# DATABASES['default'] = dj_database_url.parse(
-#     config('DATABASE_URL')
-# )
 
 
 
@@ -120,14 +123,6 @@ STATICFILES_DIRS = [
         os.path.join(BASE_DIR, 'static')
 ]
 
-if not DEBUG:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-    STORAGES = {
-        # ...
-        "staticfiles": {
-            "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-        },
-    }
 
 
 MEDIA_URL = 'media/'
